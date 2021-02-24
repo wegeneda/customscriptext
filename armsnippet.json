@@ -1,0 +1,21 @@
+{
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "name": "[concat(parameters('virtualmachinename'),'/CustomScriptExtension')]",
+    "apiVersion": "2015-06-15",
+    "location": "[parameters('location')]",
+    "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.7",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+            "fileUris": "[split(parameters('sasCustomscript'), ' ')]"
+        },
+        "protectedSettings": {
+            "commandToExecute": "[concat ('powershell -ExecutionPolicy Unrestricted -File ', variables('firstFileName'), ' ', variables('customScriptArgs'))]"
+        }
+    },
+    "dependsOn": [
+        
+    ]
+},
